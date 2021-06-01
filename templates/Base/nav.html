@@ -1,0 +1,30 @@
+{% load static %}
+
+    <ul>
+          <li class="active"><a href="{% url 'index' %}">Home</a></li>
+          <li><a href="{% url 'all_tender_notice' %}">Tender Notice</a></li>
+          <li><a href="{% url 'about' %}">About</a></li>
+          <li><a href="{% url 'service' %}">Services</a></li>
+
+          {% if request.user.is_authenticated and request.user.is_superuser %}
+            <li><a href="{% url 'SuperAdminHome' %}">My Dashboard</a></li>
+            <li><a href="{% url 'log_out'%}">Log out</a></li>
+          {% elif request.user.is_authenticated and request.user.is_government_employee %}
+            <li><a href="{% url 'government_employee_home' %}">My Dashboard</a></li>
+            <li><a href="{% url 'log_out'%}">Log out</a></li>
+          {% elif request.user.is_authenticated and request.user.is_tender_holder %}
+            <li><a href="{% url 'list_of_apply_tender' %}">My Apply Tender</a></li>
+            <li><a href="{% url 'user_winner_holder_list' %}">My Tender List</a></li>
+            <li class="drop-down"><a href="">My Dashboard</a>
+                    <ul>
+                          <li><a href="{% url 'change_profile' %}">My Profile</a></li>
+                          <li><a href="{% url 'change_password' %}">Change Password</a></li>
+                          <li><a href="{% url 'change_email' %}">Change Email</a></li>
+                    </ul>
+              </li>
+            <li><a href="{% url 'log_out'%}">Log out</a></li>
+          {% else %}
+            <li><a href="{% url 'sign_up' %}">Create a Holder Account</a></li>
+            <li><a href="{% url 'log_in' %}">Login</a></li>
+          {% endif %}
+    </ul>
