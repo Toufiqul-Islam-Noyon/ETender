@@ -26,7 +26,8 @@
                         <table class="table" id="datatable-buttons"  style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>Id</th>
+                                    <th>S. NO.</th>
+                                    <th>Tender ID</th>
                                     <th>Tender Title</th>
                                     <th>Ministry Name</th>
                                     <th>Publish Date</th>
@@ -45,6 +46,7 @@
                                     {% for tender in tender %}
                                       <tr>
                                         <td>{{ forloop.counter }}</td>
+                                        <td>{{ tender.tender_id}}</td>
                                         <td>{{ tender.title}}</td>
                                         <td>{{ tender.ministry_name }}</td>
                                         <td>{{ tender.publish_date }}</td>

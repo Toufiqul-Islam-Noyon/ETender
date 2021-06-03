@@ -155,23 +155,34 @@ def change_status_of_apply_tender_holder(request, tender_id):
 
 
 def short_list_of_apply_tender_holder(request, tender_id, user_id):
-    apply_tender = ApplyTender.objects.get(id=tender_id)
-    tender = TenderUpload.objects.get(title=apply_tender)
+    print("tender id", tender_id)
+    print("user id", user_id)
+    # apply_tender = ApplyTender.objects.get(id=tender_id)
+    # print("apply_tender=", apply_tender)
+    tender = TenderUpload.objects.get(id=tender_id)
+    print("tender=", tender)
     user = User.objects.get(id=user_id)
+    print("user=", user)
+    apply_tender = ApplyTender.objects.get(tender__title=tender, username=user)
+    print("apply_tender=", apply_tender)
+
     short_list = ApplyTenderHolderShortList()
     short_list.tender = apply_tender
     short_list.username = user
     exists_user = ApplyTenderHolderShortList.objects.filter(tender=apply_tender, username=user)
+    print("exists_user=", exists_user)
     if exists_user.exists():
         messages.add_message(request, messages.INFO, 'This User Is Already Short Listed')
-        return redirect('list_of_apply_tender', tender.id)
+        return redirect('list_of_apply_tender', tender_id)
     else:
         short_list.save()
-        return redirect('list_of_apply_tender', tender.id)
+        return redirect('list_of_apply_tender', tender_id)
 
 
 def list_of_holder_short_list(request, tender_id):
-    short_list = ApplyTenderHolderShortList.objects.filter(tender_id=tender_id)
+
+    short_list = ApplyTenderHolderShortList.objects.filter(tender__tender__id=tender_id)
+    print('short list', short_list)
     context = {
         'short_list': short_list
     }
@@ -179,36 +190,50 @@ def list_of_holder_short_list(request, tender_id):
 
 
 def meanual_winner_holder(request, tender_id, user_id):
+    print('tender id =', tender_id)
+    print('user id=', user_id)
     apply_tender = ApplyTender.objects.get(id=tender_id)
+    print('apply_tender= ', apply_tender)
     tender = TenderUpload.objects.get(title=apply_tender)
+    print('tender= ', tender)
     user = User.objects.get(id=user_id)
+    print('user = ', user)
     winner_list = WinnerHolder()
     winner_list.tender = apply_tender
     winner_list.username = user
-    exists_user = WinnerHolder.objects.filter(tender=apply_tender)
+    exists_user = WinnerHolder.objects.filter(tender__tender__title=tender)
+    print('exists user =', exists_user)
     if exists_user.exists():
-        messages.add_message(request, messages.INFO, 'This User Is Already Winner Listed')
-        return redirect('winner_holder_list', tender_id)
+        messages.add_message(request, messages.INFO, 'This Tender Is Already Winner User List')
+        return redirect('winner_holder_list', tender.id)
     else:
         winner_list.save()
+        winner_tender_id = tender.tender_id
+        print('winner tender id= ', winner_tender_id)
         winner_username = user.username
         print(winner_username)
         email = user.email
         print(email)
         print(tender)
-        send_tender_winner_holder_email(tender, winner_username, email)
-        return redirect('winner_holder_list', tender_id)
+        send_tender_winner_holder_email(winner_tender_id, tender, winner_username, email)
+        return redirect('winner_holder_list', tender.id)
 
 
 def winner_holder(request, tender_id):
-    holder_short_list = ApplyTenderHolderShortList.objects.filter(tender=tender_id)
-    w = WinnerHolder.objects.filter(tender=tender_id)
+    tender = TenderUpload.objects.get(id=tender_id)
+    print('tender==', tender)
+    holder_short_list = ApplyTenderHolderShortList.objects.filter(tender__tender=tender)
+    print('holder short list = ', holder_short_list)
+    w = WinnerHolder.objects.filter(tender__tender=tender)
+    print('winner == ', w)
     if w.exists():
-        messages.add_message(request, messages.INFO, 'This Tender Is Already Winner Listed')
+        messages.add_message(request, messages.INFO, 'This Tender Is Already Winner User List')
         return redirect('winner_holder_list', tender_id)
     else:
         winner = random.choice(holder_short_list)
         winner_tender = winner.tender
+        winner_tender_id = winner.tender.tender.tender_id
+        print('winner = ', winner_tender_id)
         winner_username = winner.username
         winner_holder = WinnerHolder()
         winner_holder.tender = winner_tender
@@ -216,12 +241,14 @@ def winner_holder(request, tender_id):
         winner_holder.save()
         email = winner.username.email
         print(email)
-        send_tender_winner_holder_email(winner_tender, winner_username, email)
+        send_tender_winner_holder_email(winner_tender_id, winner_tender, winner_username, email)
         return redirect('winner_holder_list', tender_id)
 
 
 def winner_holder_list(request, tender_id):
-    winner_holder = WinnerHolder.objects.filter(tender=tender_id)
+    tender = TenderUpload.objects.get(id=tender_id)
+    print('tender ==', tender.id)
+    winner_holder = WinnerHolder.objects.filter(tender__tender__id=tender_id)
     context = {
         'winner_holder': winner_holder
     }

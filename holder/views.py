@@ -99,7 +99,10 @@ def holder_list_of_holder_short_list(request, tender_id):
 
 
 def holder_winner_holder_list(request, tender_id):
-    winner_holder = WinnerHolder.objects.filter(tender=tender_id)
+    # winner_holder = WinnerHolder.objects.filter(tender=tender_id)
+    tender = TenderUpload.objects.get(id=tender_id)
+    print('tender ==', tender.id)
+    winner_holder = WinnerHolder.objects.filter(tender__tender__id=tender_id)
     context = {
         'winner_holder': winner_holder
     }

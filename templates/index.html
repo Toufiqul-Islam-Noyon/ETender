@@ -11,8 +11,9 @@
           <thead class="thead-light">
                 <tr>
                   <th scope="col">S. No.</th>
+                  <th scope="col">Tender ID</th>
                   <th scope="col">Tender Name </th>
-                  <th scope="col">Username</th>
+<!--                  <th scope="col">Username</th>-->
                   <th scope="col">Ministry Name</th>
                   <th scope="col">Publish Date</th>
                   <th scope="col">End Date</th>
@@ -27,8 +28,9 @@
           {% for tender in tender %}
                <tr>
                   <th scope="row">{{ forloop.counter }}</th>
+                  <td>{{ tender.tender_id }}</td>
                   <td>{{ tender.title }}</td>
-                  <td>{{ tender.username }}</td>
+<!--                  <td>{{ tender.username }}</td>-->
                   <td>{{ tender.ministry_name }}</td>
                   <td>{{ tender.publish_date}}</td>
                   <td>{{ tender.end_date}}</td>
