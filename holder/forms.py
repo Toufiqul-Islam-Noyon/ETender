@@ -8,4 +8,5 @@ class ApplyTenderForm(forms.ModelForm):
 
     class Meta:
         model = ApplyTender
-        fields = ['number', 'trx_id', 'bank_trx_id', 'proposal_pdf', 'working_exprience']
+        fields = ['payment_method', 'number', 'trx_id', 'bank_trx_id', 'bank_check_image', 'proposed_amount',
+                  'proposal_pdf', 'working_experience']

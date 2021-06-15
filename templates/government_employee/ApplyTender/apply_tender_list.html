@@ -23,6 +23,8 @@
                                 <th>Holder Name</th>
                                 <th>Payment Number</th>
                                 <th>Payment Status</th>
+                                <th>Proposed Amount</th>
+                                <th>working experience</th>
                                 <th>Approve Status</th>
                                 <th>details</th>
                                 <th>Change Payment Status</th>
@@ -36,7 +38,10 @@
                                 <td>{{ apply_tender.tender.title}}</td>
                                 <td>{{ apply_tender.username }}</td>
                                 <td>{{ apply_tender.number }}</td>
+
                                 <td>{{ apply_tender.payment_status }}</td>
+                                <td>{{ apply_tender.proposed_amount }}</td>
+                                <td>{{ apply_tender.working_experience }}</td>
                                 <td>{{ apply_tender.is_apply }}</td>
                                 <td>
                                     <a href="{% url 'apply_tender_holder_details' apply_tender.id %}"

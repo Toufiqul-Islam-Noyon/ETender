@@ -22,6 +22,8 @@
                                 <th>S. NO.</th>
                                 <th>Tender Name</th>
                                 <th>Holder Name</th>
+                                <th>Proposed Amount</th>
+                                <th>Working experience</th>
                                 <th>Holder Phone Number</th>
                                 <th>Holder Email</th>
                                 <th>Add To Tender Winner</th>
@@ -33,6 +35,8 @@
                                 <td>{{ forloop.counter }}</td>
                                 <td>{{ short_list.tender }}</td>
                                 <td>{{ short_list.username }}</td>
+                                <td>{{ short_list.tender.proposed_amount }}</td>
+                                <td>{{ short_list.tender.working_experience }}</td>
                                 <td>{{ short_list.username.phone_number }}</td>
                                 <td>{{ short_list.username.email }}</td>
                                 <td>

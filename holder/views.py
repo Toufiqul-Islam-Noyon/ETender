@@ -77,7 +77,10 @@ def apply_tender_create(request, tender_id):
             tender_apply.trx_id = form.cleaned_data['trx_id']
             tender_apply.bank_trx_id = form.cleaned_data['bank_trx_id']
             tender_apply.proposal_pdf = form.cleaned_data['proposal_pdf']
-            tender_apply.working_exprience = form.cleaned_data['working_exprience']
+            tender_apply.working_experience = form.cleaned_data['working_experience']
+            tender_apply.proposed_amount = form.cleaned_data['proposed_amount']
+            tender_apply.payment_method = form.cleaned_data['payment_method']
+            tender_apply.bank_check_image = form.cleaned_data['bank_check_image']
             tender_apply.save()
         context = {
             'form': form
@@ -148,5 +151,3 @@ def all_tender_notice(request):
         'tender_notice': tender_notice
     }
     return render(request, 'tender_notice.html', context=context)
-
-
