@@ -35,13 +35,13 @@
                   <td>{{ tender.publish_date}}</td>
                   <td>{{ tender.end_date}}</td>
                   <td><a href="{{ tender.pdf.url }}" target="_blank">{{ tender.pdf }}</a></td>
-                  <td><a href="{% url 'tender_upload_details' tender.id %}" class="btn btn-primary btn-sm btn-block">Details</a></td>
+                  <td><a href="{% url 'tender_upload_details' tender.id %}" class="btn btn-primary btn-sm btn-block" style="height:70px;width:100px"> Details</a></td>
                    <td>
-                      <a href="{% url 'apply_tender_create' tender.id %}" class="btn btn-secondary btn-sm btn-block"> Apply Tender</a>
+                      <a href="{% url 'apply_tender_create' tender.id %}" class="btn btn-secondary btn-sm btn-block" style="height:70px;width:100px"> Apply Tender</a>
                    </td>
 
-                  <td><a href="{% url 'holder_list_of_holder_short_list' tender.id %}" class="btn btn-info btn-sm btn-block">Selected Tender Holder</a></td>
-                  <td><a href="{% url 'holder_winner_holder_list' tender.id %}" class="btn btn-success btn-sm btn-block">Tender Winner</a></td>
+                  <td><a href="{% url 'holder_list_of_holder_short_list' tender.id %}" class="btn btn-info btn-sm btn-block" style="height:70px;width:100px">Selected Tender Applicants</a></td>
+                  <td><a href="{% url 'holder_winner_holder_list' tender.id %}" class="btn btn-success btn-sm btn-block" style="height:70px;width:100px">Tender Winner</a></td>
                </tr>
           {% empty %}
                 <tr>
