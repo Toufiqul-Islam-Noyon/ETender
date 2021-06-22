@@ -24,7 +24,7 @@ class ApplyTender(models.Model):
         ('Rocket', 'Rocket'),
     )
 
-    payment_method = models.CharField(max_length=7, choices=payment_method, verbose_name='Payment Method', null=True,
+    payment_method = models.CharField(max_length=7, choices=payment_method, verbose_name='Tender Fee Payment Method', null=True,
                                       blank=True)
     bank_check_image = models.FileField(verbose_name='Bank Check Image', null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)

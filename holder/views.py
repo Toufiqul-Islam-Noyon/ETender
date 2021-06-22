@@ -94,7 +94,7 @@ def apply_tender_create(request, tender_id):
 
 
 def holder_list_of_holder_short_list(request, tender_id):
-    short_list = ApplyTenderHolderShortList.objects.filter(tender_id=tender_id)
+    short_list = ApplyTenderHolderShortList.objects.filter(tender__tender__id=tender_id)
     context = {
         'short_list': short_list
     }

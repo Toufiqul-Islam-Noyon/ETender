@@ -3,8 +3,8 @@ from .models import *
 
 
 class ApplyTenderForm(forms.ModelForm):
-    number = forms.CharField(required=True, label='Payment Phone Number')
-    trx_id = forms.CharField(required=True)
+    number = forms.CharField(required=True, label='Tender Fee Payment Phone Number')
+    trx_id = forms.CharField(required=True, label='Tender Fee Trans ID')
 
     class Meta:
         model = ApplyTender
